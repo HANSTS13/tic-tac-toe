@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #141e30, #243b55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", Arial, sans-serif;
+  padding: 20px;
+}
+
+.game-card {
+  background: white;
+  padding: 35px;
+  border-radius: 24px;
+  width: 380px;
+  max-width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+}
+
+h1 {
+  color: #243b55;
+  margin-bottom: 20px;
+}
+
+.score-board {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.score-board div {
+  flex: 1;
+  background: #f1f5f9;
+  padding: 14px;
+  border-radius: 14px;
+}
+
+.score-board span {
+  display: block;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.score-board strong {
+  font-size: 28px;
+  color: #2563eb;
+}
+
+.status {
+  color: #2563eb;
+  margin-bottom: 20px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 90px);
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.square {
+  width: 90px;
+  height: 90px;
+  border: none;
+  border-radius: 16px;
+  background: #e2e8f0;
+  color: #243b55;
+  font-size: 42px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.square:hover {
+  background: #cbd5e1;
+  transform: scale(1.05);
+}
+
+.square.filled {
+  background: #2563eb;
+  color: white;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.buttons button {
+  flex: 1;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 420px) {
+  .board {
+    grid-template-columns: repeat(3, 75px);
+  }
+
+  .square {
+    width: 75px;
+    height: 75px;
+  }
+}
