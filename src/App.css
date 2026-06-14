@@ -83,7 +83,23 @@ h1 {
   background: #cbd5e1;
   transform: scale(1.05);
 }
+.winner-square {
+  background: #22c55e !important;
+  color: white;
+  position: relative;
+}
 
+.winner-square::after {
+  content: "";
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  top: 50%;
+  height: 5px;
+  background: white;
+  border-radius: 10px;
+  transform: rotate(-20deg);
+}
 .square.filled {
   background: #2563eb;
   color: white;

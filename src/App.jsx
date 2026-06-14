@@ -3,10 +3,13 @@ import "./App.css";
 
 function App() {
   const [squares, setSquares] = useState(Array(9).fill(null));
+  const [startingPlayer, setStartingPlayer] = useState("X");
   const [isXTurn, setIsXTurn] = useState(true);
   const [score, setScore] = useState({ X: 0, O: 0 });
 
-  const winner = calculateWinner(squares);
+  const winnerInfo = calculateWinner(squares);
+  const winner = winnerInfo?.winner;
+  const winningLine = winnerInfo?.line || [];
   const isDraw = !winner && squares.every((square) => square !== null);
 
   function handleClick(index) {
@@ -16,26 +19,31 @@ function App() {
     nextSquares[index] = isXTurn ? "X" : "O";
 
     setSquares(nextSquares);
-    setIsXTurn(!isXTurn);
 
-    const newWinner = calculateWinner(nextSquares);
+    const newWinnerInfo = calculateWinner(nextSquares);
 
-    if (newWinner) {
+    if (newWinnerInfo) {
       setScore((prevScore) => ({
         ...prevScore,
-        [newWinner]: prevScore[newWinner] + 1,
+        [newWinnerInfo.winner]: prevScore[newWinnerInfo.winner] + 1,
       }));
+    } else {
+      setIsXTurn(!isXTurn);
     }
   }
 
   function restartGame() {
+    const nextStarter = startingPlayer === "X" ? "O" : "X";
+    setStartingPlayer(nextStarter);
     setSquares(Array(9).fill(null));
-    setIsXTurn(true);
+    setIsXTurn(nextStarter === "X");
   }
 
   function resetScore() {
     setScore({ X: 0, O: 0 });
-    restartGame();
+    setStartingPlayer("X");
+    setSquares(Array(9).fill(null));
+    setIsXTurn(true);
   }
 
   let status;
@@ -70,7 +78,9 @@ function App() {
           {squares.map((value, index) => (
             <button
               key={index}
-              className={`square ${value ? "filled" : ""}`}
+              className={`square ${value ? "filled" : ""} ${
+                winningLine.includes(index) ? "winner-square" : ""
+              }`}
               onClick={() => handleClick(index)}
             >
               {value}
@@ -103,7 +113,10 @@ function calculateWinner(squares) {
     const [a, b, c] = line;
 
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return {
+        winner: squares[a],
+        line: line,
+      };
     }
   }
 
